@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | emart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <!-- Nav bar -->
+    <nav class="flex justify-between items-center bg-black text-white text-2xl p-6 rounded-b-xl">
+        <div>
+            <a href="{% url 'index' %}" class="font-bold"><span class="text-teal-500">e</span>Mart</a href="{% url 'index' %}">
+        </div>
+        <div class="flex space-x-8">
+            <a href="#">New Items</a>
+            <a href="#">Browse</a>
+            <div class="space-x-2">
+                <a href="{url 'signup'}"
+                    class="px-3 pt-1 pb-2 bg-gray-300 text-black rounded-xl text-xl font-semibold">Sign Up</a>
+                <a href="{url 'login'}"
+                    class="px-3 pt-1 pb-2 bg-teal-500 text-black rounded-xl text-xl font-semibold">Log In</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- main content -->
+    {% block content %}
+    
+    {% endblock %}
+
+
+    <!-- Footer content -->
+    <footer class="bg-black grid grid-cols-3 p-6 gap-6">
+        <div class="col-span-2">
+            <h3 class="text-xl text-gray-200 font-semibold">About</h3>
+            <p class="text-gray-400 text-balance">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam quas
+                harum in labore sequi deserunt eum molestias, recusandae optio minus. Iste odio laudantium ea ex iure
+                soluta, animi nam sit modi, est officia.</p>
+        </div>
+        <div class="col-span-1">
+            <h3 class="text-xl text-gray-200 font-semibold mb-5">Menu</h3>
+            <ul class="space-y-3">
+                <li><a href=""
+                        class="text-teal-600 text-lg font-medium transition ease-out hover:text-teal-400 hover:underline">About</a>
+                </li>
+                <li><a href="{% url 'contacts' %}"
+                        class="text-teal-600 text-lg font-medium transition ease-out hover:text-teal-400 hover:underline">Contacts</a>
+                </li>
+                <li><a href=""
+                        class="text-teal-600 text-lg font-medium transition ease-out hover:text-teal-400 hover:underline">Privacy
+                        Policies</a></li>
+                <li><a href=""
+                        class="text-teal-600 text-lg font-medium transition ease-out hover:text-teal-400 hover:underline">Terms
+                        & Conditions</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+{{item.name}}
+{% endblock %}
+
+{% block content %}
+<div>
+    <img src="{{item.image.url}}" alt="">
+</div>
+<div>
+    {% for other in others %}
+    <img src="{{other.image.url}}" alt="">
+    {% endfor %}
+</div>
+{% endblock %}
