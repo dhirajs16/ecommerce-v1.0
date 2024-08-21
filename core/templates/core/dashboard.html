@@ -4,5 +4,33 @@
 
 
 {% block content %}
-<a href="{% url 'core:logout' %}">Logout</a>
+<div class="grid grid-cols-4">
+    <!-- Side bar for profile detail and logout button -->
+    <div class="col-span-1 bg-gray-200 py-32 flex flex-col items-center gap-5">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+            class="w-[100px] h-[100px] rounded-full border border-[5px] border-black">
+            <path
+                d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z" />
+        </svg>
+        <h3 class="font-semibold tex-2xl">{{user}}</h3>
+        <a href="{% url 'core:logout' %}"
+            class="px-3 pt-1 pb-2 bg-teal-500 text-black rounded-xl text-xl font-semibold">Logout</a>
+
+    </div>
+    <!-- items added by the user -->
+    <div class="col-span-3 p-20">
+        <h1 class="py-10 text-center text-2xl font-bold">Items Added By {{user}}</h1>
+        <div class="grid grid-cols-4 gap-6">
+            {% for item in items %}
+            <a href="{% url 'item:detail' item.id %}"
+                class="col-span-1 flex flex-col justify-end items-center border-[2px] border-gray-200 rounded-2xl">
+                <img src="{{item.image.url}}" alt="image" class="rounded-t-2xl">
+                <h1 class="pt-5 text-xl font-semibold">{{item.name}}</h1>
+                <p class="text-lg text-gray-500">Price: ${{item.price}}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}

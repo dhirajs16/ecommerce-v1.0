@@ -19,7 +19,14 @@
             <p><span class="text-2xl font-semibold">Description:</span> {{item.description}}</p>
             <p><span class="text-2xl font-semibold">Price:</span> ${{item.price}}</p>
             <p><span class="text-2xl font-semibold">Seller:</span> {{item.created_by}}</p>
-            <a class="py-2 text-white text-xl font-semibold bg-teal-500 rounded-xl text-center mt-10" href="">Connect to Seller</a>
+            <div class="flex gap-5 w-full">
+                {% if not request.user == item.created_by %}
+                <a class="py-2 w-1/2 text-white text-xl font-semibold bg-teal-500 rounded-xl text-center mt-10" href="">Connect to Seller</a>
+                {% else %}
+                <a class="py-2 w-1/2 text-white text-xl font-semibold bg-yellow-500 rounded-xl text-center mt-10" href="{% url 'item:update_item' item.pk %}">Update Item</a>
+                <a class="py-2 w-1/2 text-white text-xl font-semibold bg-red-500 rounded-xl text-center mt-10" href="{% url 'item:delete_item' item.pk %}">Delete Item</a>
+                {% endif %}
+            </div>
         </div>
     </div>
     <!-- related items section -->

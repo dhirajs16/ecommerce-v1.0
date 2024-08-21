@@ -55,7 +55,8 @@ def log_out(request):
 
 def dashboard(request):
     if request.user.is_authenticated:
-        return render(request, 'core/dashboard.html', {'user': request.user})
+        items = Item.objects.filter(created_by = request.user) 
+        return render(request, 'core/dashboard.html', {'user': request.user, 'items': items})
     else:
         return redirect('/login/')
     
