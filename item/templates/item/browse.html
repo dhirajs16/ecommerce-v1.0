@@ -1,6 +1,6 @@
 {% extends 'core/base.html' %}
 
-{% block title %}{{user.username}}{% endblock %}
+{% block title %}Browse{% endblock %}
 
 
 {% block content %}
@@ -8,9 +8,10 @@
     <!-- Search bar -->
     <div class="col-span-1 bg-gray-200 p-10">
         <h3 class="font-semibold text-2xl mb-5">Search Items</h3>
+        <!-- search form -->
         <form method="get" class="mb-10">
-            <input type="search" name="search" placeholder="search toys, furniture and manymore" class="p-2 w-full rounded-xl border border-gray-700 border-2">
-            <input type="submit" value="Search" class="px-3 pt-1 pb-2 bg-teal-500 text-black rounded-xl text-xl font-semibold mt-5">
+            <input type="search" name="query" value="{{query}}" placeholder="search toys, furniture and manymore" class="p-2 w-full rounded-xl border border-gray-700 border-2">
+            <input type="submit" value="Search" name="search" class="px-3 pt-1 pb-2 bg-teal-500 text-black rounded-xl text-xl font-semibold mt-5">
         </form>
         <h3 class="font-semibold text-2xl mb-5">Categories</h3>
         <ul>
@@ -19,7 +20,7 @@
             {% endfor %}
         </ul>
     </div>
-    <!-- items  -->
+    <!-- items view  -->
     <div class="col-span-3 py-10 px-20">
         <h1 class="pb-10 text-center text-2xl font-bold">Items</h1>
         <div class="grid grid-cols-4 gap-6">

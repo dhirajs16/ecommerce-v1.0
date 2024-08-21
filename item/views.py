@@ -2,28 +2,37 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import NewItemForm
 from .models import Item, Category
+from django.db.models import Q
 
 
 
 # Create your views here.
+
+# browse items view
 def items(request):
     categories = Category.objects.all().order_by('name')
     items = Item.objects.filter(is_sold = False).order_by('name')
-    # if request.method == 'GET':
-    #     search_value = request.GET.get('search')
-    #     print(search_value)
-    #     items = Item.objects.filter(is_sold = False, name__icontains = search_value)
-    #     return redirect('item:items')
-    
-    return render(request, 'item/browse.html', {'items':items, 'categories': categories}) 
+    query = request.GET.get('query','')
+    # print(query)
+    if query:
+        items = Item.objects.filter(
+            Q(name__icontains = query) |
+            Q(description__icontains = query) |
+            Q(category__name__icontains = query)|
+            Q(created_by__username__icontains = query)
+        )
+
+    return render(request, 'item/browse.html', {'items':items, 'categories': categories, 'query': query}) 
 
 
-
+# deatiled item view
 def detail(request, pk):
     item = get_object_or_404(Item, pk = pk)
     related_items = Item.objects.filter(category = item.category, is_sold = False).exclude(pk = pk)
     return render(request, 'item/detail.html', {'item': item, 'related_items': related_items})
 
+
+# create new item view
 @login_required
 def new_item(request):
     if request.method == "POST":
@@ -37,6 +46,8 @@ def new_item(request):
         form = NewItemForm()
     return render(request, 'item/new_item.html', {'form': form})
 
+
+# update an item view
 @login_required
 def update_item(request, pk):
     item = get_object_or_404(Item, pk = pk)
@@ -50,6 +61,7 @@ def update_item(request, pk):
     return render(request, 'item/update_item.html', {'form': form, 'item': item})
 
 
+# delete view
 @login_required
 def delete_item(request, pk):
     Item.objects.filter(pk = pk).delete()
